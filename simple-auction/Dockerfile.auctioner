@@ -1,0 +1,20 @@
+FROM golang:1.22-alpine AS builder
+
+WORKDIR /app
+
+COPY ./auctioner .
+
+RUN go build -o auctioner-service .
+
+FROM  alpine:latest
+
+WORKDIR /app
+
+COPY --from=builder /app/auctioner-service .
+
+EXPOSE 3000
+
+CMD [ "./auctioner-service" ]
+
+
+

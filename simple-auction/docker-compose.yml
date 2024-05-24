@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  auctioner:
+    build:
+      context: .
+      dockerfile: Dockerfile.auctioner
+    ports:
+      - "3000:3000"
+    restart: always
+
+  bidder:
+    build:
+      context: .
+      dockerfile: Dockerfile.bidder
+    ports:
+      - "8080:8080"
+    restart: always
+

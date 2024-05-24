@@ -1,0 +1,18 @@
+FROM golang:1.22-alpine AS builder
+
+WORKDIR /app
+
+COPY ./bidder .
+
+RUN go build -o bidder-service .
+
+FROM  alpine:latest
+
+WORKDIR /app
+
+COPY --from=builder /app/bidder-service .
+
+EXPOSE 8080
+
+CMD [ "./bidder-service" ]
+
